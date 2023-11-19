@@ -25,4 +25,5 @@ def get_split_docs(text_data, documents, split_type="character", chunk_size=300,
         except Exception as e:
               print(f"Error in split_documents: {e}")
 
+    print("In TextSplitter", splitted_text, splitted_docs)
     return splitted_text, splitted_docs

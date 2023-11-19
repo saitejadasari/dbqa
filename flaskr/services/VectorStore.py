@@ -30,6 +30,7 @@ def store_and_get_vector_db(text_data, documents, vectorstore_type = "FAISS", em
         vector_db = vs.FAISS
     elif vectorstore_type == "CHROMA":
         vector_db = vs.Chroma
+    db = None
     if text_data:
         try:
             db = vector_db.from_texts(text_data, embedding_model)
@@ -48,8 +49,9 @@ def store_and_get_vector_db(text_data, documents, vectorstore_type = "FAISS", em
 
 def get_similar_docs(db, question, with_score=False):
     similar_docs = None
-    if with_score:
-        similar_docs = db.similarity_search_with_relevance_scores(question)
-    else:
-        similar_docs = db.similarity_search(question)
+    if db is not None:
+        if with_score:
+            similar_docs = db.similarity_search_with_relevance_scores(question)
+        else:
+            similar_docs = db.similarity_search(question)
     return similar_docs
